@@ -1,4 +1,5 @@
 open Gfile
+open Tools
 
 let () =
 
@@ -24,7 +25,7 @@ let () =
   let graph = from_file infile in
 
   (* Rewrite the graph that has been read. *)
-  let () = write_file outfile graph in
+  let () = write_file outfile (clone_nodes graph) in
 
   ()
 
