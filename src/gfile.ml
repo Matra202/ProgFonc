@@ -99,4 +99,15 @@ let from_file path =
   close_in infile ;
   final_graph
 
+let export gr = assert false
+(*TODO : il faut itérer sur les nodes puis sur les out_arcs de ces nodes
+          il faut faire un unit et créer un fichier .txt de format comme 
+          en dessous *)
 
+(* lien : https://graphviz.org/Gallery/directed/fsm.html *)
+
+(*digraph finite_state_machine {
+  fontname="Helvetica,Arial,sans-serif"
+  node [fontname="Helvetica,Arial,sans-serif"]
+  edge [fontname="Helvetica,Arial,sans-serif"]
+  rankdir=LR;*)
