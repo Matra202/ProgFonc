@@ -13,6 +13,7 @@ demo: build
 	@echo "\n==== EXECUTING ====\n"
 	./ftest.native graphs/graph1 1 2 outfile
 	@echo "\n==== RESULT ==== (content of outfile) \n"
+	@dot -Tsvg outgraphexport > outgraph.svg
 	@cat outfile
 
 clean:

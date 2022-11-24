@@ -26,6 +26,6 @@ let () =
 
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile (clone_nodes graph) in
-
+  export "outgraphexport" graph;
   ()
 

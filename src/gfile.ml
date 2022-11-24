@@ -99,15 +99,24 @@ let from_file path =
   close_in infile ;
   final_graph
 
-let export gr = assert false
-(*TODO : il faut itérer sur les nodes puis sur les out_arcs de ces nodes
-          il faut faire un unit et créer un fichier .txt de format comme 
-          en dessous *)
+let export p gr = 
+  let ff = open_out p in
+  fprintf ff "digraph finite_state_machine {\n";
+  fprintf ff "  fontname=\"Helvetica,Arial,sans-serif\"\n";
+  fprintf ff "  node [fontname=\"Helvetica,Arial,sans-serif\"]\n";
+  fprintf ff "  edge [fontname=\"Helvetica,Arial,sans-serif\"]\n";
+  fprintf ff "  rankdir=LR;\n";
+  fprintf ff "  node [shape = circle];\n";
+  (*TODO : il faut itérer sur les arcs 
+            il faut faire un unit et créer un fichier .txt de format comme 
+            en dessous (e_iter est pixel) *)
+  e_iter gr (fun id1 id2 label -> fprintf ff "  %d -> %d [label = \"%s\"];\n" id1 id2 label);
+  fprintf ff "}";
+  (* lien : https://graphviz.org/Gallery/directed/fsm.html *)
 
-(* lien : https://graphviz.org/Gallery/directed/fsm.html *)
-
-(*digraph finite_state_machine {
-  fontname="Helvetica,Arial,sans-serif"
-  node [fontname="Helvetica,Arial,sans-serif"]
-  edge [fontname="Helvetica,Arial,sans-serif"]
-  rankdir=LR;*)
+  (*digraph finite_state_machine {
+    fontname="Helvetica,Arial,sans-serif"
+    node [fontname="Helvetica,Arial,sans-serif"]
+    edge [fontname="Helvetica,Arial,sans-serif"]
+    rankdir=LR;
+    node [shape = circle];*)
