@@ -25,7 +25,7 @@ let () =
   let graph = from_file infile in
 
   (* Rewrite the graph that has been read. *)
-  let () = write_file outfile (clone_nodes graph) in
-  export "outgraphexport" graph;
+  let () = write_file outfile (graph) in
+  export "outgraphexport" (graph_int_to_string(add_arc (graph_string_to_int graph) 2 5 15));
   ()
 

@@ -7,7 +7,7 @@ let clone_nodes gr =
 
 let gmap (gr: 'a graph) (f: 'a -> 'b)  = 
   let gr2 = clone_nodes gr in 
-  e_fold gr (fun g id1 id2 a -> (new_arc gr2 id1 id2 (f a))) empty_graph
+  e_fold gr (fun g id1 id2 a -> (new_arc g id1 id2 (f a))) gr2
 
 let add_arc gr id1 id2 n = 
   let found = find_arc gr id1 id2 in 
@@ -15,6 +15,8 @@ let add_arc gr id1 id2 n =
   |None -> new_arc gr id1 id2 n
   |Some v -> new_arc gr id1 id2 (v + n)
 
-
 let graph_int_to_string gr = 
-  gmap gr string_of_int;
+  gmap gr string_of_int
+
+let graph_string_to_int gr = 
+  gmap gr int_of_string
