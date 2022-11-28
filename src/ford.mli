@@ -1,7 +1,9 @@
 open Graph
-open Gfile
-open Tools
 
-val initialize_flow: int graph -> int graph
+val initalize_residual: int graph -> int graph
 
-(* Graph résiduel à faire : le graph avec les arcs dans les deux sens 0/5 etc)
+val add_max_residual: int graph -> id -> id -> int graph
+
+val add_residual: int graph -> id -> id -> int -> int graph
+
+val reset_flow : int graph -> id -> id -> int graph

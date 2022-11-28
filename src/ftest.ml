@@ -1,5 +1,6 @@
 open Gfile
 open Tools
+open Ford 
 
 let () =
 
@@ -26,6 +27,6 @@ let () =
 
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile (graph) in
-  export "outgraphexport" (graph_int_to_string(add_arc (graph_string_to_int graph) 2 5 15));
+  export "outgraphexport" (graph_int_to_string(reset_flow(add_residual(initalize_residual (graph_string_to_int graph))0 3 15)0 3));
   ()
 
