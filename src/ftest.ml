@@ -1,6 +1,7 @@
 open Gfile
 open Tools
 open Ford 
+open Printf
 
 let () =
 
@@ -27,6 +28,24 @@ let () =
 
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile (graph) in
-  export "outgraphexport" (graph_int_to_string(reset_flow(add_residual(initalize_residual (graph_string_to_int graph))0 3 15)0 3));
+  (*export "outgraphexport" (graph_int_to_string(reset_flow(add_residual(initalize_residual (graph_string_to_int graph))0 3 15)0 3));*)
+  let a = node_successors (initalize_residual(graph_string_to_int graph)) 3 in 
+  let b = find_path (graph_string_to_int graph) 0 5 in
+  List.iter (printf "\nLes successeurs de 3 sont : %d \n") a ;
+  printf("Le chemin pour aller de 0 à 5 n'est pas: ") ;
+  List.iter (printf "%d, ") b;
+  let d = has_path (initalize_residual(graph_string_to_int graph)) 0 5 in 
+  let e = if (d=None) then 
+      [0]
+    else 
+      List.map listoption_to_list d
+  in
+  printf("\n\nLe chemin pour aller de 0 à 5 est : ") ;
+  List.iter (printf "%d, ") e;
+  (*
+    let c = get_max_flow_of_path (initalize_residual(graph_string_to_int graph))0 [0;1;4;5] in
+    printf("\n\nLe max de flow pour le chemin 0-1-4-5 est : %d") c ;
+    printf("\n\nLe result est pour 0 : %d") (get_flow(add_flow_to_path(initalize_residual (graph_string_to_int graph)) 0 [0;1;4;5] c) 0);*)
+  export "outgraphexport" (graph_int_to_string(initalize_residual (graph_string_to_int graph)));
   ()
 
