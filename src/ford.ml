@@ -39,28 +39,27 @@ let node_successors gr n =
   List.map (fun (id,_) -> id) (List.filter (fun (id,a) -> a>0) (out_arcs gr n))
 
 
-let has_path g nodefin nodes = 
+let has_path g nodes nodefin= 
   (*recpath (node::visited) (succ) in*)
   let rec recpath visited node = 
     if not (List.mem node visited) then
       begin
         if (node = nodefin) then 
-          List.rev (node::visited)
+          Some( List.rev (node::visited))
         else
           let node_s = node_successors g node in 
-          List.fold_left recpath (node::visited) node_s 
+          List.find_map (recpath (node::visited)) node_s 
       end
     else
-      []
-  in match (recpath [] nodes) with 
-  |[] -> None
-  | x::tail -> Some(x::tail)
+      None
+  in 
+  recpath [] nodes
 
 
 
 (* il faut que g soit résiduel *)
-(*let find_path (g : int graph) id1 id2 = 
-  List.find_map has_path node_s*)
+(*let find_path (g : int graph) id1 id2 = assert false*)
+(*List.find_map has_path node_s*)
 
 
 let get_max_flow_of_path gr start path = 
@@ -110,3 +109,19 @@ let get_flow gr start =
     | node::tail -> rflow (acu + List.fold_left (fun x y-> x + y) 0 (List.map (fun (id,a) -> a) (List.filter (fun (id,a) -> id=start) (out_arcs gr node)))) tail
   in
   rflow 0 nodes
+
+let ford gr start fin = 
+  let g=initalize_residual gr in
+  let rec recford gra = 
+    let hp = (listoption_to_list (has_path gra start fin))in 
+    if (hp=[]) then
+      gra
+    else
+      recford (add_flow_to_path gra start hp (get_max_flow_of_path gra start hp))
+  in
+  recford g
+
+
+let resi_to_flow gr = assert false
+(* TODO affichage correct en Flow/Capacité avec arc que d'un coté*)
+

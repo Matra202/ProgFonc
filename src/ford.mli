@@ -16,8 +16,8 @@ val reset_flow : int graph -> id -> id -> int graph
 
 val node_successors : int graph -> id -> id list
 
-val find_path : int graph -> id -> id -> id list
-
+(*val find_path : int graph -> id -> id -> id list
+*)
 val get_max_flow_of_path : int graph -> id -> id list -> int 
 
 val add_flow_to_path : int graph -> id -> id list -> int -> int graph
@@ -30,3 +30,7 @@ val get_total_capacity : int graph -> id -> int
 val get_flow : int graph -> id -> int 
 
 val has_path : int graph -> id -> id -> id list option
+
+val ford : int graph -> id -> id -> int graph 
+
+val resi_to_flow : int graph -> string graph
