@@ -122,6 +122,25 @@ let ford gr start fin =
   recford g
 
 
-let resi_to_flow gr = assert false
 (* TODO affichage correct en Flow/Capacité avec arc que d'un coté*)
+let resi_to_flow gr fg  =
+  let gr2 = clone_nodes gr in
+  e_fold gr ( fun g id1 id2 label -> 
+      let label = find_arc fg id2 id1 in
+      (match label with
+       | Some x -> new_arc g id1 id2 x
+       | None -> new_arc g id1 id2 0)
+    ) gr2
 
+let last_affichage graph_initial graph_final = 
+  let gr2 = clone_nodes graph_initial in
+  e_fold graph_initial (fun g id1 id2 label -> 
+      let label = find_arc graph_final id1 id2 in
+      (match label with
+       | Some x -> let label2 = find_arc graph_initial id1 id2 in 
+         (match label2 with
+          | Some y -> new_arc g id1 id2 ((string_of_int x)^"/"^(string_of_int y))
+          |None -> new_arc g id1 id2 "0")
+
+       | None -> new_arc g id1 id2 "0")
+    ) gr2

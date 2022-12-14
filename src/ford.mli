@@ -33,4 +33,6 @@ val has_path : int graph -> id -> id -> id list option
 
 val ford : int graph -> id -> id -> int graph 
 
-val resi_to_flow : int graph -> string graph
+val resi_to_flow : int graph -> int graph -> int graph
+
+val last_affichage : int graph -> int graph -> string graph

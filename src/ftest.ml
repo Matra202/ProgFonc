@@ -58,5 +58,5 @@ let () =
     let c = get_max_flow_of_path (initalize_residual(graph_string_to_int graph))0 [0;1;4;5] in
     printf("\n\nLe max de flow pour le chemin 0-1-4-5 est : %d") c ;
     printf("\n\nLe result est pour 0 : %d") (get_flow(add_flow_to_path(initalize_residual (graph_string_to_int graph)) 0 [0;1;4;5] c) 0);*)
-  export "outgraphexport" (graph_int_to_string(f3));
+  export "outgraphexport" (last_affichage (graph_string_to_int graph) (resi_to_flow (graph_string_to_int graph) g));
   ()
