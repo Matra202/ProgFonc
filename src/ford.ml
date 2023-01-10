@@ -5,7 +5,7 @@ open Tools
 let initalize_residual gr = 
   e_fold gr (fun g id1 id2 a -> (new_arc g id2 id1 0)) gr
 
-let get_max_flow gr id1 id2 = 
+let get_max_flow_aux gr id1 id2 = 
   let max_op = find_arc gr id1 id2 in 
   match max_op with 
   |None -> 0
@@ -69,7 +69,7 @@ let get_max_flow_of_path gr start path =
     |x::tail -> if (x=start) then 
         rmax acu x tail
       else
-        rmax (min(get_max_flow gr lastnode x) acu)  x tail
+        rmax (min(get_max_flow_aux gr lastnode x) acu)  x tail
   in
   rmax 9999 start path
 
@@ -100,7 +100,7 @@ let get_total_capacity gr start =
 
 
 (*fonction bien trop compliquée qui généralise au cas où il peut y avoir 
-  plusieurs arcs d'une node vers une autre pour absolument aucune raison =) *)
+  plusieurs arcs d'une node vers une autre pour absolument aucune raison*)
 let get_flow gr start = 
   let nodes = List.map (fun (id,_) -> id) (out_arcs gr start) in 
   let rec rflow acu snode = 
@@ -122,7 +122,6 @@ let ford gr start fin =
   recford g
 
 
-(* TODO affichage correct en Flow/Capacité avec arc que d'un coté*)
 let resi_to_flow gr fg  =
   let gr2 = clone_nodes gr in
   e_fold gr ( fun g id1 id2 label -> 

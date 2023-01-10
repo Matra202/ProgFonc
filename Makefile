@@ -15,7 +15,7 @@ demo: build
 	@echo "\n==== RESULT ==== (content of outfile) \n"
 	@dot -Tsvg outgraphexport > outgraph.svg
 	@cat outfile
-	@eom outgraph.svg
+	@eom graphs/graph1.svg outgraph.svg 
 clean:
 	-rm -rf _build/
 	-rm ftest.native
